@@ -1,0 +1,11 @@
+bond_profit     =  0.54;
+gold_profit     =  3.12;
+stock_profit    =  2.33;
+no_spend_profit =  1.00;
+max_bond        =  1000;    
+max_gold        =  2000;
+max_save        =  7000;
+max_stock       =  1000;
+
+
+total_money     =  11000;
