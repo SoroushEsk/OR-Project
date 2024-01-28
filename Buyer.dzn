@@ -1,11 +1,9 @@
-bond_profit     =  0.54;
-gold_profit     =  3.12;
-stock_profit    =  2.33;
-no_spend_profit =  1.00;
-max_bond        =  1000;    
-max_gold        =  2000;
-max_save        =  7000;
-max_stock       =  1000;
-
-
-total_money     =  11000;
+bond_profit = 0.00135 ;
+stock_profit = -0.17065088795870867 ;
+gold_profit = -0.029192731622275425 ;
+max_bond = 1002.3033942940591 ;
+max_stock = 50115.169714702955 ;
+max_gold = 50115.169714702955 ;
+last_week_bond = [1039.573534584317, 78.16546229372034, 145.4383987563269] ;
+gold_price = 184.789993; 
+total_money = 50115.169714702955 ;
