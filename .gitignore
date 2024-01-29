@@ -143,6 +143,10 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+
+#vs Code junk
+*.code-workspace
+
 # Pyre type checker
 .pyre/
 
