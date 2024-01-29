@@ -1,0 +1,9 @@
+bond_profit = 0.00135 ;
+stock_profit = 0.014362168548516074 ;
+gold_profit = -0.007419678439855528 ;
+max_bond = 4296.033344574515 ;
+max_stock = 45703.96665542548 ;
+max_gold = 0 ;
+last_week_bond = [0, 0, 0] ;
+gold_price = 183.970001; 
+total_money = 50000 ;

@@ -43,7 +43,6 @@ def fillMissingRowGoldAndStock():
     # Stock File 
     fillNonExistingDates(".\\CSV_FILES\\Stock.csv")
 
-
 # save Next week profit rate
 def addNextWeekChangeRate(filePath):
     tableSeries = pd.read_csv(filePath)
@@ -54,6 +53,8 @@ def addNextWeekChangeRate(filePath):
     tableSeries["NextWeek"] = nextWeek 
 
     tableSeries.to_csv(filePath)
+
+# set the next week value of change rate for gold and stock
 def nextWeekRateGoldAndStock():
     #Gold-----------------
     addNextWeekChangeRate(".\\CSV_FILES\\Gold.csv")
@@ -78,8 +79,18 @@ def goldAndStockChangeRate(featureNum : int) -> None:
      # Stock Change rate------------------------
      addChangeRateColumns(".\\CSV_FILES\\Stock.csv", featureNum)
 
+# slice table in csv from start to end 
+def dataSlice(CSV, start_date, end_date):
+    # put out any type of date in correct format
+    start_date  = pd.to_datetime(start_date)
+    end_date    = pd.to_datetime(end_date)
+    CSV["Date"] = pd.to_datetime(CSV["Date"])
 
+    # set date column as index
+    CSV.set_index("Date", inplace = True)
 
+    # slice the table between to time periods
+    return CSV.loc[start_date : end_date]
 
 
 

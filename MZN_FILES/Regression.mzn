@@ -18,4 +18,4 @@ constraint forall(i in 1..sampleNumber) (z[i] >= (profit[i] - sum ( j in 1..feat
 
 solve minimize sum(i in 1..sampleNumber) (z[i]);
 
-output ["a=", show(featureCoef), " b=", show(offset), " z=", show(z)];
+output ["Coefs=", show(featureCoef), "offset=", show(offset), " z=", show(z)];
