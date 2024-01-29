@@ -28,11 +28,11 @@ def dicisionMakingDZN(total_money, gold_profit, stock_profit, gold_price, last_b
         profit_sum += stock_profit
 
     max_stock= 0
-    max_bond =( (.0054/4) / profit_sum )* total_money
+    max_bond =0.01* total_money
     max_gold = 0
 
     if( gold_profit > 0 ):
-        max_gold = (gold_profit / profit_sum) * total_money
+        max_gold = (gold_profit / profit_sum) * total_money * .1
     if( stock_profit > 0 ):
         max_stock =(stock_profit / profit_sum) * total_money
     
@@ -52,7 +52,7 @@ def dicisionMakingDZN(total_money, gold_profit, stock_profit, gold_price, last_b
 
 # run gold regression function
 def goldRegression():
-    solver = Solver.loopup("cdb")
+    solver = Solver.lookup("cbc")
 
     model = Model(".\\MZN_FILES\\Regression.mzn")
     model.add_file(".\\DZN_FILES\\gold.dzn")
@@ -60,11 +60,11 @@ def goldRegression():
     instance = Instance(solver, model)
     result   = instance.solve()
 
-    return [result["offset"]] + result["Coefs"]
+    return [result["offset"]] + result["featureCoef"]
 
 # run stock regression function
 def stockRegression():
-    solver = Solver.loopup("cdb")
+    solver = Solver.lookup("cbc")
 
     model = Model(".\\MZN_FILES\\Regression.mzn")
     model.add_file(".\\DZN_FILES\\stock.dzn")
@@ -72,8 +72,7 @@ def stockRegression():
     instance = Instance(solver, model)
     result   = instance.solve()
 
-    return [result["offset"]] + result["Coefs"]
-
+    return [result["offset"]] + result["featureCoef"]
 #set gold.dzn file before run the model
 def regressionUpdateDZN(featureNum:int, CSV, filePath) -> None :
     # modifying the gold dzn file

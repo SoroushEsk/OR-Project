@@ -48,7 +48,7 @@ def addNextWeekChangeRate(filePath):
     tableSeries = pd.read_csv(filePath)
 
     # find the next week change rate based on today
-    nextWeek = [((tableSeries["Close"][i+7] - tableSeries["Close"][i])/tableSeries["Close"][i]) for i in range(0, len(tableSeries["Close"]) - 7)]        
+    nextWeek = [(tableSeries["Close"][i+7] - tableSeries["Close"][i] ) / tableSeries["Close"][i] for i in range(0, len(tableSeries["Close"]) - 7)]        
     nextWeek = nextWeek + [0] * 7
     tableSeries["NextWeek"] = nextWeek 
 
@@ -66,7 +66,7 @@ def addChangeRateColumns(filePath, featureNum):
     file = pd.read_csv(filePath) 
 
     for day in range(1,featureNum+1):
-        profit = [((file["Close"][i] - file["Close"][i - day])/file["Close"][i-day])for i in range(day, len(file["Close"]))]        
+        profit = [(file["Close"][i]-file["Close"][i - day])/file["Close"][i] for i in range(day, len(file["Close"]))]        
         profit = [0]*day + profit
         file["Profit"+ str(day)] = profit    
 

@@ -5,15 +5,15 @@ from minizinc import Instance, Model, Solver
 
 total_money = 50000
 
-def disicionMaking():
-    solver = Solver.lookup("cbc")
-    model = Model("./Buyer.mzn")
-    model.add_file("./Buyer.dzn")
-    instance = Instance(solver, model)
-    result = instance.solve()
+# def disicionMaking():
+    # solver = Solver.lookup("cbc")
+    # model = Model("./Buyer.mzn")
+    # model.add_file("./Buyer.dzn")
+    # instance = Instance(solver, model)
+    # result = instance.solve()
 
 
-    return (result['gold'] , result['stock'], result['bond'])
+    # return (result['gold'] , result['stock'], result['bond'])
 def get_close_value_by_date(target_date, df):
 
     # Convert the 'date' column to a pandas datetime object
@@ -111,39 +111,39 @@ def buyAndSell():
 
     print(total_money + sum(last_bond)*(1.0054))
 
-def setCoefDisicion(total_money, gold_profit, stock_profit, gold_price, last_bond):
-    buyer_dzn_file = open("Buyer.dzn", 'w')
+# def setCoefDisicion(total_money, gold_profit, stock_profit, gold_price, last_bond):
+#     buyer_dzn_file = open("Buyer.dzn", 'w')
 
 
-    profit_sum = .0054/4
-    if( gold_profit > 0 ):
-        profit_sum += gold_profit
-    if( stock_profit > 0 ):
-        profit_sum += stock_profit
+#     profit_sum = .0054/4
+#     if( gold_profit > 0 ):
+#         profit_sum += gold_profit
+#     if( stock_profit > 0 ):
+#         profit_sum += stock_profit
 
-    max_stock= 0
-    max_bond =( (.0054/4) / profit_sum )* total_money
-    max_gold = 0
+#     max_stock= 0
+#     max_bond =( (.0054/4) / profit_sum )* total_money
+#     max_gold = 0
 
-    if( gold_profit > 0 ):
-        max_gold = (gold_profit / profit_sum) * total_money
-    if( stock_profit > 0 ):
-        max_stock =(stock_profit / profit_sum) * total_money
+#     if( gold_profit > 0 ):
+#         max_gold = (gold_profit / profit_sum) * total_money
+#     if( stock_profit > 0 ):
+#         max_stock =(stock_profit / profit_sum) * total_money
     
-    if(profit_sum == .0054/4):
-        max_bond = 0.0* total_money
-    max_gold = total_money
-    max_stock= total_money
+#     if(profit_sum == .0054/4):
+#         max_bond = 0.0* total_money
+#     max_gold = total_money
+#     max_stock= total_money
 
-    buyer_dzn_file.write( f"bond_profit = {.0054/4} ;\n" )
-    buyer_dzn_file.write( f"stock_profit = {stock_profit} ;\n") 
-    buyer_dzn_file.write( f"gold_profit = {gold_profit} ;\n")
-    buyer_dzn_file.write( f"max_bond = {max_bond} ;\n")
-    buyer_dzn_file.write( f"max_stock = {max_stock} ;\n")
-    buyer_dzn_file.write( f"max_gold = {max_gold} ;\n")
-    buyer_dzn_file.write( f"last_week_bond = {last_bond} ;\n")
-    buyer_dzn_file.write( f"gold_price = {gold_price}; \n")
-    buyer_dzn_file.write( f"total_money = {total_money} ;\n")
+#     buyer_dzn_file.write( f"bond_profit = {.0054/4} ;\n" )
+#     buyer_dzn_file.write( f"stock_profit = {stock_profit} ;\n") 
+#     buyer_dzn_file.write( f"gold_profit = {gold_profit} ;\n")
+#     buyer_dzn_file.write( f"max_bond = {max_bond} ;\n")
+#     buyer_dzn_file.write( f"max_stock = {max_stock} ;\n")
+#     buyer_dzn_file.write( f"max_gold = {max_gold} ;\n")
+#     buyer_dzn_file.write( f"last_week_bond = {last_bond} ;\n")
+#     buyer_dzn_file.write( f"gold_price = {gold_price}; \n")
+#     buyer_dzn_file.write( f"total_money = {total_money} ;\n")
 
 
 # Function to load and preprocess data
@@ -169,12 +169,12 @@ def load_and_preprocess_data(stock_file, gold_file, start_date=None, end_date=No
     return stock_data, gold_data
 
 
-# Function to write data to .dzn file
-def write_to_dzn(data, filename):
-    with open(filename, 'w') as file:
-        file.write(f'n = {len(data)};\n')
-        file.write('x = [' + ', '.join(data['Days'].astype(str)) + '];\n')
-        file.write('y = [' + ', '.join(data['Close'].astype(str)) + '];\n')
+# # Function to write data to .dzn file
+# def write_to_dzn(data, filename):
+#     with open(filename, 'w') as file:
+#         file.write(f'n = {len(data)};\n')
+#         file.write('x = [' + ', '.join(data['Days'].astype(str)) + '];\n')
+#         file.write('y = [' + ', '.join(data['Close'].astype(str)) + '];\n')
 
 
 # Function to solve the model and extract coefficients

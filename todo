@@ -1,1 +1,7 @@
-functio to do main job
+
+
+
+plot:
+    get csv and coefs and paint a beatiful plot
+    get date and closed and paint plot
+    get total price and date plot it
