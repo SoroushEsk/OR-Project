@@ -2,11 +2,14 @@ from dataAnalysis import deleteStockGoldColumn, fillMissingRowGoldAndStock
 from dataAnalysis import goldAndStockChangeRate,nextWeekRateGoldAndStock, dataSlice
 import ModelHandeling as MH
 import pandas as pd
+import dataRepresentation as dr
 #### Global Variables ==========
 number_of_features = 4
 amount_of_money    = 50000
-gold_csv = pd.read_csv(".\\CSV_FILES\\Gold.csv")
+gold_csv  = pd.read_csv(".\\CSV_FILES\\Gold.csv")
 stock_csv = pd.read_csv(".\\CSV_FILES\\Stock.csv")
+dateList = []
+priceList= []
 # gold_csv["Date"] = pd.to_datetime(gold_csv["Date"])
 # # set date column as index
 # gold_csv.set_index("Date", inplace = True)    
@@ -24,17 +27,19 @@ def get_value(coef, csv_row):
     
     return result
 
-def run(day_number):
+def run(day_number, numberOfWeeks:int):
     # setting global Variables
     global number_of_features
     global amount_of_money
     global gold_csv
     global stock_csv
+    global dateList
+    global priceList
 
     last_bond = [0, 0, 0, 0]
     #initialize from 1 of may
     prediction_date = pd.to_datetime("2023-05-01")
-    for week in range(38):
+    for week in range(numberOfWeeks):
         end_date        = prediction_date - pd.DateOffset(days=6)
         start_date      = end_date - pd.DateOffset(days = day_number)
 
@@ -43,6 +48,7 @@ def run(day_number):
 
 
         gold_tetha = MH.goldRegression()
+
         stock_tetha= MH.stockRegression()
 
         # print("gold coef", gold_tetha)
@@ -79,12 +85,14 @@ def run(day_number):
 
 
         new_amount_money += last_bond[3] * (1.0054)
+
         print("bond", bond)
 
         last_bond = [bond] + last_bond[0:3]
         print(last_bond)
+        dateList += [prediction_date]
         prediction_date += pd.DateOffset(days=6)
-
+        priceList += [new_amount_money]
         amount_of_money = new_amount_money
         print(amount_of_money)
         if ( prediction_date >= pd.to_datetime("2023-11-29")) :
@@ -95,6 +103,8 @@ def run(day_number):
         gold_csv = gold_csv_t
         stock_csv= stock_csv_t
         print("-----------------------------------------------------")
+
+    print(amount_of_money+sum(last_bond))
 # first should create file with "Close" column
 # we are using just the one Column
     
@@ -113,7 +123,9 @@ nextWeekRateGoldAndStock()
     
 goldAndStockChangeRate(number_of_features)
 
-run(30)
+dr.plot_prices_from_csv(".\\CSV_FILES\\Gold.csv", ".\\CSV_FILES\\Stock.csv")
 
+run(10, 40)
 
+dr.plot_prices(dateList, priceList)
 

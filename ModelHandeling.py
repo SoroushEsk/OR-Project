@@ -28,11 +28,11 @@ def dicisionMakingDZN(total_money, gold_profit, stock_profit, gold_price, last_b
         profit_sum += stock_profit
 
     max_stock= 0
-    max_bond =0.01* total_money
+    max_bond =0.000001* total_money
     max_gold = 0
 
     if( gold_profit > 0 ):
-        max_gold = (gold_profit / profit_sum) * total_money * .1
+        max_gold = (gold_profit / profit_sum) * total_money * 0.00001
     if( stock_profit > 0 ):
         max_stock =(stock_profit / profit_sum) * total_money
     
